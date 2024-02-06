@@ -35,7 +35,7 @@ classdef MediumTrain < handle & matlab.mixin.Copyable
             z = 0;
             for which_m = num:-1:1
                 medium_now = obj.medium_list{which_m};
-                disp(strcat("medium now: ",medium_now.type))
+                % disp(strcat("medium now: ",medium_now.type))
                 % 更新 medium_now --> 同時也更新了 obj.medium_list{which_m} (相同位址)
                 switch medium_now.type
                     case "Cube"

@@ -215,6 +215,7 @@ gp = GradientPrism( PBA_key = [41.5],...
                     reversed = 1);
 % auf, grl 設定
 auf = AUF(AUFMode=1,a_start=0.1,a_end=1.001,a_num=10);
+auf = AUF(AUFMode=0);
 grl = GRL(GRLMode=1,file="GRL-F13L20,LRA12,E2C0.73-1.25_0322 (KeepSub).mat");
 segment = Segment(num=5);
 lens = Lens(LRA = 12,...
@@ -245,6 +246,7 @@ air_prismtolens = Lens( LRA = 12,...
                         segment = segment);                                     % 凹透鏡
 gap = Cube(thickness=3.663,refractive_index=1.52);
 displayCover = Cube(thickness=0.264,refractive_index=1.51);
+
 %% step 2: 建立 medium train
 % 預設追跡順序: 遞增 (從上至下)
 medium_list = {air_eye,gp,air_prismtolens,lens,gap,displayCover};
@@ -260,21 +262,7 @@ gp.deriveNormalList(lens)
 % IPA layer: air(Eye) --> prism --> air(Lens)
 % noIPA layer: "air(lens)" --> lens --> gap --> displayCover
 tracingBus = TracingBus(medium_train,IPA=[1:3]);
-
-%%
 tracingBus.tracing
-
-% 
-% for whichEye = eyeMode
-%     for whichLen = rangeY
-%         for whichSeg = rangeX
-%             for whichAperture = aperture_list
-%                 % update "lens traveling z"
-%                 
-%                 for whichEdge = [-1 1]
-%                 end
-%             end
-%         end
-%     end
-% end
-
+% Point Matrix object
+RP = Point_Matrix(tracingBus.RP);
+RP_eye = RP.eye_extract;

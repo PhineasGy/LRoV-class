@@ -16,11 +16,10 @@ classdef TracingBus < handle & matlab.mixin.Copyable
         auf_num
         segPoint_num
 
-        % output
-        RP          % struct: .length .two edge position
-                    % auf x lens x seg x 2(左右 edge)
-        systemTop   % x,y,z 座標
-        RR          % struct: .length .two edge position
+        % output: Point_Matrix (5-D) [auf x lens x seg x 2(左右 edge) x eye]
+        RP
+        RR
+        systemTop         
     end
     
     methods
@@ -37,7 +36,7 @@ classdef TracingBus < handle & matlab.mixin.Copyable
             obj.IPA_ind = NameValueArgs.IPA;
             obj.set_mediumList;
             % 建立 RP RR 矩陣 (座標)
-            RP = cell(obj.auf_num,obj.lens_num,obj.segPoint_num,2);
+            RP = cell(obj.auf_num,obj.lens_num,obj.segPoint_num,2,3);   % 2: two edge, 3: three eye
             RR = RP;
             ...
         end
@@ -48,7 +47,7 @@ classdef TracingBus < handle & matlab.mixin.Copyable
             lens = medium_list{cellfun(@isa,medium_list,repmat("Lens",[1,obj.medium_num]))};
             obj.lens_num = lens.number;
             obj.auf_num = size(lens.z_edge_list,1);
-            obj.segPoint_num = size(lens.center_list{1},1);
+            obj.segPoint_num = size(lens.center_list{1},2);
         end
         function set_mediumList(obj)
             medium_list = obj.medium_train.medium_list;
@@ -157,7 +156,7 @@ classdef TracingBus < handle & matlab.mixin.Copyable
                                     case 1
                                         edge_ind = 2;
                                 end
-                                obj.RP{whichAperture,whichLens,whichSeg,edge_ind} = R.point_tail;
+                                obj.RP{whichAperture,whichLens,whichSeg,edge_ind,whichEye+2} = R.point_tail;
                             end
                         end
                     end
