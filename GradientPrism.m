@@ -185,7 +185,6 @@ classdef GradientPrism < Cube
                     end
                     normal = [-sind(PBA_desired);0;-cosd(PBA_desired)]; % 出 Prism 斜面法向量  
                     normal = obj.rotPRA * normal; % 旋轉法向量
-                    
                     PBA_array(:,which_segP) = PBA_desired;
                     normal_array(:,which_segP) = normal;
                 end

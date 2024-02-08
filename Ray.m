@@ -65,6 +65,12 @@ classdef Ray < handle & matlab.mixin.Copyable
             obj.vector = values;
             obj.update;
         end
+         function set_uv(obj,values)    % 強制更新 uv， 不做 obj.update
+            if ~isequal([size(values,1),size(values,2),size(values,3)],[3,1,1])
+                error(strcat("[錯誤] Ray 物件參數型態錯誤: vector must with size(3,1)"))
+            end
+            obj.uv = values;
+        end
         
         %% 更新 vector (by refraction)
         % snell's law 3D vector form
@@ -88,20 +94,20 @@ classdef Ray < handle & matlab.mixin.Copyable
             uv_junc_normal = uv_junc_normal/norm(uv_junc_normal);
             uv_in = obj.uv;
             uv_out = sqrt(1-mu^2*(1-(uv_junc_normal'*uv_in)^2))*uv_junc_normal+...
-                mu*(uv_in-(uv_junc_normal'*uv_in)*uv_junc_normal);
-            
-            % update uv
-            obj.uv = uv_out;
+                mu*(uv_in-(uv_junc_normal'*uv_in)*uv_junc_normal);  
 
-            % 
             if needP
                 obj.set_head(obj.p_t)   % 新頭為上一道光線的尾
-                obj.update_tail(mediumB.z_traveling) % 新尾由 頭 "uv" 和 Z 決定
+                obj.set_uv(uv_out);
+                obj.update_tail(mediumB.z_traveling); % 新尾由 頭 "uv" 和 Z 決定
                 obj.update_vector     % 由新頭尾重新更新 Vector
                 obj.update            % 更新其他參數: 縮寫, uv, TIR
-            end
+            else
+                % update uv only
+                obj.set_uv(uv_out);
+            end  
+            
         end
-
 
         %% 更新 point tail (by head, "uv" and travel Z) (注意 Z 正負)
         function update_tail(obj,z)

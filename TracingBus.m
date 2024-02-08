@@ -66,7 +66,16 @@ classdef TracingBus < handle & matlab.mixin.Copyable
             medium_list = obj.medium_train.medium_list;
             eye = obj.medium_train.eye;
             medium_top = medium_list{1};
-            gp = medium_list{cellfun(@isa,medium_list,repmat("GradientPrism",[1,obj.medium_num]))};
+            gp_layer_num = cellfun(@isa,medium_list,repmat("GradientPrism",[1,obj.medium_num]));
+            gp = medium_list{gp_layer_num};
+            layer_next2_gp = medium_list{find(gp_layer_num)+1};   % 要和 GP 一起改 normal
+            switch gp.reversed
+                case 1
+                    gpnext_reversed = 0;
+                case 0
+                    gpnext_reversed = 1;
+            end
+
             % 下面 lens 大部分情況是指 prism lens 間的 air
             lens = medium_list{cellfun(@isa,medium_list,repmat("Lens",[1,obj.medium_num]))};% 理論上會有兩層，取任意層均可
             % for normal update
@@ -80,7 +89,8 @@ classdef TracingBus < handle & matlab.mixin.Copyable
                         %% update gp PBA --> normal
                         gp_normal = gp.normal_list{whichLens}(:,whichSeg);
                         gp.force_normal(top_btm=gp.reversed,normal=gp_normal);
-
+                        % note: GP 接觸層也要改為此 normal
+                        layer_next2_gp.force_normal(top_btm=gpnext_reversed,normal=gp_normal);
                         for whichAperture = 1:obj.auf_num
                             %% update "lens traveling z"
                             % z_traveling: 通常為 1x2 陣列 (兩層 Lens)
@@ -131,8 +141,8 @@ classdef TracingBus < handle & matlab.mixin.Copyable
                                             % snell's law
                                             mediumA = obj.medium_IPA{mm};
                                             mediumB = obj.medium_IPA{mm+1};
-                                            R.snell(mediumA,mediumB,1); % 1: 需要位置座標
-                                        end
+                                            R.snell(mediumA,mediumB,1); % 1: 需要位置座標                                            
+                                        end 
                                         dev = R.point_tail - point_end;
                                         if sqrt(dev(1)^2+dev(2)^2)<1e-6 %誤差越小越好 其值待商榷!
                                             break
