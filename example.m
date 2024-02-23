@@ -1,6 +1,6 @@
 clear
 clc;
-
+addpath("class")
 %% step 1: 建立介質
 % Eye 物件
 % eye = Eye();
