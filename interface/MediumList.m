@@ -4,7 +4,6 @@ classdef MediumList < handle
     
     properties
         list Medium
-        order
     end
     
     methods
@@ -19,6 +18,11 @@ classdef MediumList < handle
             if isempty(current_number);current_number = 0;end
             obj.list(current_number+1) = medium;
             disp("[info]: medium added.")
+        end
+        function set_order(obj)
+            current_number = length(obj.list);
+            if isempty(current_number);error("[error] no medium found in medium list when setting order. (系統停止)");end
+            obj.list(current_number).set_order(current_number);
         end
     end
 end

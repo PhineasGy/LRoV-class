@@ -1,0 +1,12 @@
+1. add create cube button
+2. creation window will appear when clicking create button
+	1. close when main window close
+	2. create button control in main program
+2. after creating, created medium will be shown in table
+3. by clinking corresponding row, information of medium will appear in right label region
+4. creation window cancel button
+5. "window" folder 
+6. add order option
+--- (not yet)
+.. modify the medium
+.. information table optimze (show only input parameter)
