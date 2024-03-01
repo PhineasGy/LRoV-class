@@ -7,6 +7,8 @@
 4. creation window cancel button
 5. "window" folder 
 6. add order option
+7. modify the medium
+8. information table optimze (show only useful parameter)
 --- (not yet)
-.. modify the medium
-.. information table optimze (show only input parameter)
+.. all type of medium's input: setable
+

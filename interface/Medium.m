@@ -1,4 +1,5 @@
-classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous
+classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous ...
+        & matlab.mixin.SetGet
     %MEDIUM "介質" 物件
     %   參數:
     % 1. 介質厚度
@@ -7,6 +8,8 @@ classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous
     % 4. 上下介面法向量 (預設朝下 (-z))
     
     properties(SetAccess=protected, GetAccess=public)   % read only
+        % for interface 20240226
+        name
         % necessary input
         type                % 使用者輸入 (有預設值)
         thickness           % 使用者輸入 (有預設值)
@@ -25,8 +28,6 @@ classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous
         n
         nm_top
         nm_btm
-        % for interface 20240226
-        name
     end
     
     methods

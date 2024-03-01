@@ -1,7 +1,10 @@
 classdef Cube < Medium
-    %CUBE Summary of this class goes here
-    %   Detailed explanation goes here
-    
+    %CUBE 
+    % User Input:
+    % name
+    % thickness
+    % refractive_index
+
     properties(SetAccess=protected, GetAccess=public)   % read only
         % thickness         (使用者輸入) from Medium
         % refractive_index  (使用者輸入) from Medium

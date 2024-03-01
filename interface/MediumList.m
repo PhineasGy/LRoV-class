@@ -24,6 +24,10 @@ classdef MediumList < handle
             if isempty(current_number);error("[error] no medium found in medium list when setting order. (系統停止)");end
             obj.list(current_number).set_order(current_number);
         end
+
+        function replace(obj,ind,new)
+            obj.list(ind) = new;
+        end
     end
 end
 
