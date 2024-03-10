@@ -125,7 +125,7 @@ classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous ..
                 else
                     error("[錯誤]: force_normal 失敗，無法識別 top_btm")
                 end
-            elseif isnumeric(top_btm)   % reversed 判定
+            elseif islogical(top_btm)   % reversed 判定
                 if top_btm == 1     % reversed = 1 --> btm
                     obj.normal_bottom = normal;
                 elseif top_btm == 0 % reversed = 0 --> top

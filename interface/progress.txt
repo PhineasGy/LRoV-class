@@ -10,5 +10,5 @@
 7. modify the medium
 8. information table optimze (show only useful parameter)
 --- (not yet)
-.. gp
+.. gp create
 

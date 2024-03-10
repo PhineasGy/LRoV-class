@@ -7,6 +7,9 @@ function str = info_extract(M)
         case "Cube"
             str_candidate = ["name","type","thickness","refractive_index"];
         case "Lens"
+            str_candidate = ["name","type","thickness","refractive_index"];
+        case "GP"
+            str_candidate = ["name","type","thickness","refractive_index"];
     end
     str = strings(length(str_candidate),1);
     for ii = 1:length(str_candidate)
