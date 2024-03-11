@@ -8,20 +8,21 @@ classdef ManualGP < handle & matlab.mixin.Copyable
         
         % input
         gp   GradientPrism           % GP 物件
+        PBA_list_text   % for interface
 
         % output
         LtoPBAFunction
     end
     
     methods
-        function obj = ManualGP()
+        function obj = ManualGP(options)
             %AUTOGP Construct an instance of this class
             %   Detailed explanation goes here
             %% name-value pair 輸入
             arguments   % 使用者輸入
-                
+                options.PBA_list_text % for interface
             end
-
+            if isfield(options,"PBA_list_text");obj.PBA_list_text = options.PBA_list_text;end
         end
         
         function update_manualGP(obj,gp)

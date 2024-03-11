@@ -11,6 +11,7 @@ classdef AutoGP < handle & matlab.mixin.Copyable
         PBA_center
         medium_list     % 按照順序追跡
         WDGP
+        medium_list_text
         % output
         PLAtoPBAFunction
         virtualEye
@@ -26,11 +27,13 @@ classdef AutoGP < handle & matlab.mixin.Copyable
                 NameValueArgs.medium_list
                 NameValueArgs.WDGP
                 options.gp
+                options.medium_list_text % for interface
             end
             
             obj.medium_list = NameValueArgs.medium_list;
             obj.WDGP = NameValueArgs.WDGP;
             if isfield(options,"gp");obj.gp = options.gp;end
+            if isfield(options,"medium_list_text");obj.medium_list_text = options.medium_list_text;end
         end
         function update_autoGP(obj,gp)
             % 將 mediun_list 中 [] 替換為 gp

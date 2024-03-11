@@ -9,6 +9,16 @@
 6. add order option
 7. modify the medium
 8. information table optimze (show only useful parameter)
+9. gp create
+    1. autogp 創建失敗提醒
+    2. autoGP class: add property "medium_list_text"
+    3. manualGP class: add property "PBA_list_text"
+10. gp modify
+
 --- (not yet)
-.. gp create
+.. gp show info
+
+
+-- tips --
+close all force (關閉所有視窗 uifigure)
 
