@@ -100,6 +100,7 @@ classdef Lens < Medium % 先執行 Medium 初始化 --> 執行 Lens 初始化
             % optional 參數檢查
             if ~isfield(options, "grl"); options.grl.GRLMode = 0; end
             if ~isfield(options, "auf"); options.auf.AUFMode = 0; end
+            if ~isfield(options, "segment"); options.segment.num = 1; end
             obj.vex_cave = options.vex_cave;
             if ~any(options.reversed == [1,0])
                 error("[錯誤]: reversed 參數只能為 1 or 0 (系統停止)")
@@ -134,6 +135,12 @@ classdef Lens < Medium % 先執行 Medium 初始化 --> 執行 Lens 初始化
             obj.rotLRA = rotz(obj.LRA);
             % edge_list
             obj.deriveEdgeList
+
+            % grl auf seg (interface)
+            obj.seg = options.segment;
+            obj.grl = options.grl;
+            obj.auf = options.auf;
+
             % update
             obj.update
         end
