@@ -19,14 +19,19 @@ classdef MediumList < handle
             obj.list(current_number+1) = medium;
             disp("[info]: medium added.")
         end
-        function set_order(obj)
-            current_number = length(obj.list);
-            if isempty(current_number);error("[error] no medium found in medium list when setting order. (系統停止)");end
-            obj.list(current_number).set_order(current_number);
+
+        function update_order(obj)  % update all order by list
+            for ii = 1:length(obj.list)
+                obj.list(ii).set_order(ii);
+            end
         end
 
         function replace(obj,ind,new)
             obj.list(ind) = new;
+        end
+
+        function delete(obj,ind)    % 以下往上遞補
+            obj.list(ind) = [];
         end
     end
 end

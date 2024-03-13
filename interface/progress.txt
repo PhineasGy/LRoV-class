@@ -14,9 +14,12 @@
     2. autoGP class: add property "medium_list_text"
     3. manualGP class: add property "PBA_list_text"
 10. gp modify
+11. gp showinfo
+12. UITable update, order, delete
 
 --- (not yet)
-.. gp show info
+.. lens create, modify, showinfo
+    1. 建 Lens 時要同時建立 concave convex
 
 
 -- tips --
