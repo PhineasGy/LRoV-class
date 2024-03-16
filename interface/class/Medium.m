@@ -10,6 +10,7 @@ classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous ..
     properties(SetAccess=protected, GetAccess=public)   % read only
         % for interface 20240226
         name
+        tag
         % necessary input
         type                % 使用者輸入 (有預設值)
         thickness           % 使用者輸入 (有預設值)
@@ -58,6 +59,9 @@ classdef Medium < handle & matlab.mixin.Copyable & matlab.mixin.Heterogeneous ..
         %% set parameter
         function set_name(obj, values)
             obj.name = values;
+        end
+        function set_tag(obj, values)
+            obj.tag = values;
         end
         function set_t(obj, values)
             if obj.type == "Cube"

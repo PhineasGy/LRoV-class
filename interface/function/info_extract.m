@@ -1,18 +1,21 @@
 function str = info_extract(M)
     arguments
-        M Medium
+        M 
     end
-    
-    switch M.type
-        case "Cube"
-            str_candidate = ["name","type","thickness","refractive_index"];
-        case "Lens"
-            str_candidate = ["name","type","thickness_EI0","refractive_index",...
-                            "pitch","aperture","LRA","size_hor","size_ver",...
-                            "reversed","seg","grl","auf"];
-        case "GP"
-            str_candidate = ["name","type","thickness","refractive_index",...
-                            "reversed","GPMode","PRA"];
+    if isa(M,"Medium")
+        switch M.type
+            case "Cube"
+                str_candidate = ["name","type","thickness","refractive_index"];
+            case "Lens"
+                str_candidate = ["name","type","thickness_EI0","refractive_index",...
+                                "pitch","aperture","LRA","size_hor","size_ver",...
+                                "reversed","seg","grl","auf"];
+            case "GP"
+                str_candidate = ["name","type","thickness","refractive_index",...
+                                "reversed","GPMode","PRA"];
+        end
+    elseif isa(M,"Eye")
+        str_candidate = ["mode","IPD","VD","VVA","VVA_ori","HVA","HVA_ori","PS","STA"];
     end
     str = strings(length(str_candidate),1);
     for ii = 1:length(str_candidate)
@@ -27,6 +30,9 @@ function str = info_extract(M)
             case "auf"
                 temp = M.get(str_candidate(ii));
                 str_temp = extract_from_auf(M,temp.AUFMode);
+            case "mode" % eye mode
+                temp = M.get(str_candidate(ii));
+                str_temp = extract_from_eyemode(temp);
             otherwise
                 str_temp = M.get(str_candidate(ii));
         end
@@ -61,5 +67,16 @@ function str = extract_from_auf(M,content)
             str = "no AUF";
         case 1
             str = "AUF (a_start " + M.auf.a_start + " a_end " + M.auf.a_end + " num " + M.auf.a_num + ")";
+    end
+end
+function str = extract_from_eyemode(content)
+    if isequal(content,0)
+        str = "bino eye";
+    elseif isequal(content,-1)
+        str = "left eye";
+    elseif isequal(content,1)
+        str = "right eye";
+    elseif isequal(content,[-1 1])
+        str = "middle eye";
     end
 end

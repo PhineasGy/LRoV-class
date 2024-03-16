@@ -16,10 +16,17 @@
 10. gp modify
 11. gp showinfo
 12. UITable update, order, delete
+13. lens create, modify, showinfo
+    1. 建 Lens 時要同時建立 concave convex
+    2. modify
+14. add 'tag' property to Medium
+15. eye setup, info
+    1. 同時建立眼睛介質 (厚度隨 VA 改變-->VDZ)
+    2. 該介質有 tag "eye, 會併至 Medium List
+    3. 該介質不可更動順序, 修改, 或 刪除
 
 --- (not yet)
-.. lens create, modify, showinfo
-    1. 建 Lens 時要同時建立 concave convex
+16. 執行, 計算
 
 
 -- tips --
