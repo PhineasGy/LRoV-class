@@ -9,7 +9,7 @@ function str = info_extract(M)
             case "Lens"
                 str_candidate = ["name","type","thickness_EI0","refractive_index",...
                                 "pitch","aperture","LRA","size_hor","size_ver",...
-                                "reversed","seg","grl","auf"];
+                                "reversed","vex_cave","seg","grl","auf"];
             case "GP"
                 str_candidate = ["name","type","thickness","refractive_index",...
                                 "reversed","GPMode","PRA"];
@@ -22,6 +22,8 @@ function str = info_extract(M)
         switch str_candidate(ii)
             case "GPMode" 
                 str_temp = extract_from_GPMode(M,M.get(str_candidate(ii)));
+            case "vex_cave"
+                str_temp = extract_from_vex_cave(M.get(str_candidate(ii)));
             case "seg"
                 str_temp = extract_from_seg(M);
             case "grl"
@@ -67,6 +69,14 @@ function str = extract_from_auf(M,content)
             str = "no AUF";
         case 1
             str = "AUF (a_start " + M.auf.a_start + " a_end " + M.auf.a_end + " num " + M.auf.a_num + ")";
+    end
+end
+function str = extract_from_vex_cave(content)
+    switch content % auf.AUFMode
+        case 1
+            str = "convex (凸透鏡)";
+        case -1
+            str = "convex (凹透鏡)";
     end
 end
 function str = extract_from_eyemode(content)

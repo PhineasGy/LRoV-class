@@ -33,6 +33,37 @@ classdef MediumList < handle
         function delete(obj,ind)    % 以下往上遞補
             obj.list(ind) = [];
         end
+
+        function target = find(obj,options)  % 搜尋特定介質
+            arguments
+                obj
+                options.tag
+                options.name
+                options.type
+                options.order
+            end
+            if isfield(options,"tag")
+                index_tag = arrayfun(@(x) isequal(x.tag,options.tag),obj.list);
+            else
+                index_tag = ones(1,length(obj.list));
+            end
+            if isfield(options,"name")
+                index_name = arrayfun(@(x) isequal(x.name,options.name),obj.list);
+            else
+                index_name = ones(1,length(obj.list));
+            end
+            if isfield(options,"type")
+                index_type = arrayfun(@(x) isequal(x.type,options.type),obj.list);
+            else
+                index_type = ones(1,length(obj.list));
+            end
+            if isfield(options,"order")
+                index_order = arrayfun(@(x) isequal(x.order,options.order),obj.list);
+            else
+                index_order = ones(1,length(obj.list));
+            end
+            target = obj.list(index_tag&index_name&index_type&index_order);
+        end
     end
 end
 
